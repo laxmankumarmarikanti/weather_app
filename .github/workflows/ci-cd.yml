@@ -1,0 +1,32 @@
+name: Vite React CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted   # Use your self-hosted runner
+    steps:
+      # Checkout the repo
+      - uses: actions/checkout@v3
+
+      # Setup Node.js environment
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Build the app
+      - name: Build app
+        run: npm run build
+
+      # Deploy to server
+      - name: Deploy to Server
+        run: |
+          rsync -avz --delete dist/ user@yourserver:/var/www/vite-react-app/
