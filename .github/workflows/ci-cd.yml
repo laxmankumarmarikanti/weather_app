@@ -25,10 +25,10 @@ jobs:
       # Build the app
       - name: Build with env variables
         run: |
-          echo "VITE_WEATHER_API_KEY=${{ secrets.VITE_WEATHER_API_KEY }}" >> .env
+          echo "VITE_WEATHER_API_KEY=${{ secrets.VITE_WEATHER_API_KEY }}" >> .env.production
           npm run build
 
-
+          
       # Deploy to server
       - name: Deploy to Server
         run: |
