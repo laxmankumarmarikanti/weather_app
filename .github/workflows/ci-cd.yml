@@ -33,5 +33,5 @@ jobs:
       # Deploy to server
       - name: Deploy to Server
         run: |
-          rsync -avz --delete dist/ laxman@172.25.141.63:/var/www/weather_app/
+          rsync -avz --delete dist/ /var/www/weather_app/
  
