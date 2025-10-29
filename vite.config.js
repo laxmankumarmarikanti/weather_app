@@ -8,7 +8,7 @@ export default defineConfig({
     react(),
     tailwindcss()
   ],
-  base: '/',
+  base: '/weather_app',
   server: {
     host: '0.0.0.0', 
     port: 3000,
