@@ -4,7 +4,6 @@ import BackgroundImage from "./assets/background_image.jpg";
 import "./App.css";
 
 function App() {
-  debugger;
   const [city, setCity] = useState("uppal,hyderabad,telangana");
   const [weather, setWeather] = useState(null);
   const [forecast, setForecast] = useState([]);

@@ -3,13 +3,13 @@ name: Deploy Vite React App to GitHub Pages
 on:
   push:
     branches:
-      - main   # or your default branch
+      - main  # or your default branch
 
 permissions:
   contents: write
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     environment: github-pages
 
@@ -26,17 +26,29 @@ jobs:
 
       # 3. Install dependencies
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
-      # 4. Build project with env vars
+      # 4. Build project (with environment variables)
       - name: Build project
         run: |
           echo "VITE_WEATHER_API_KEY=${{ secrets.VITE_WEATHER_API_KEY }}" >> .env.production
           npm run build
 
-      # 5. Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      # 5. Upload build artifact for deployment job
+      - name: Upload production-ready files
+        uses: actions/upload-pages-artifact@v3
         with:
-          personal_token: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          publish_dir: ./dist
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      # 1. Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
