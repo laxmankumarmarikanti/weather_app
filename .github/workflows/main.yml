@@ -7,6 +7,8 @@ on:
 
 permissions:
   contents: write
+  pages: write        # required for GitHub Pages deployment
+  id-token: write     # ✅ needed for OIDC authentication
 
 jobs:
   build:
